@@ -51,7 +51,7 @@ const NavBar = ({authenticate,setAuthenticate}) => {
             <ul>
                 {
                     menuList.map((item,index) => {
-                        return <li key={index}><a href='#'>{item}</a></li>
+                        return <li key={index}><a href='https://hnm-allezvvell.netlify.app'>{item}</a></li>
                     })
                 }
             </ul>
@@ -65,7 +65,7 @@ const NavBar = ({authenticate,setAuthenticate}) => {
         <button className='close-btn' onClick={mobileMenuOff}><FontAwesomeIcon icon={faXmark} /></button>
         <ul>
           {menuList.map((item,index) => {
-            return <li key={index}><a href='#'>{item}</a></li>
+            return <li key={index}><a href='https://hnm-allezvvell.netlify.app'>{item}</a></li>
           })}
         </ul>
       </div>
