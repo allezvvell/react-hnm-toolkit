@@ -19,7 +19,7 @@ const DetailPage = () => {
   }
   useEffect(()=>{
     getProductDetail();
-    console.log(productDetail)
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
   return (
     <div className='detail-wrap container'>
@@ -30,7 +30,7 @@ const DetailPage = () => {
         <div className='desc-box col-md-6 col-12'>
           <h3>{productDetail?.title}</h3>
           <strong>₩ {productDetail?.price}</strong>
-          <span className='choice'>{productDetail && productDetail.choice == true?'Conscious Choice':''}</span>
+          <span className='choice'>{productDetail && productDetail.choice === true?'Conscious Choice':''}</span>
           <Dropdown className='select-size'>
             <DropdownToggle variant='outline-dark'>사이즈 선택</DropdownToggle>
             <DropdownMenu>
