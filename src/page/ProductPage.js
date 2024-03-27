@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const ProductPage = () => { 
   const [productList,setProductList] = useState([]);
-  const [searchParams,setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const getProductList = async () => {
     const query = searchParams.get('q') || '';
     let URL = `https://my-json-server.typicode.com/allezvvell/react-hnm/products/?q=${query}`; 

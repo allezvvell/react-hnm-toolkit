@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const ProductCard = ({item}) => {
   const navigate = useNavigate();
-  const [searchParams,setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const goToDetail = () => {
     navigate(`/products/${item.id}`);
   }
