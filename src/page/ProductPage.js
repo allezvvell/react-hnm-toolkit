@@ -4,7 +4,7 @@ import ProductCard from '../component/ProductCard';
 import { useSearchParams } from 'react-router-dom';
 
 const ProductPage = () => { 
-  const [productList,setProductList] = useState([]);
+  const [productList,setProductList] = useState(null);
   const [searchParams] = useSearchParams();
   const getProductList = async () => {
     const query = searchParams.get('q') || '';
@@ -23,29 +23,52 @@ const ProductPage = () => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   },[searchParams]);
 
-  return (
-    productList.length !== 0 ? (
-      <div>
-      <Container>
-        <Row>
-          {
-            productList?.map((item,index) => {
-              return <Col lg={3} key={index}><ProductCard item={item}/></Col>
-            })
-          }
-        </Row>
-      </Container>
-    </div>
-    ) : (
-      <div>
-        <Container>
-          <Row>
-            해당하는 상품이 없습니다.
-          </Row>
-        </Container>
-      </div>
-    )
-  )
+  if(!productList){
+    return <Container>
+      <Row>
+        상품을 불러오는중입니다.
+      </Row>
+    </Container>
+  }else if (productList && productList.length === 0){
+    return <Container>
+      <Row>
+        해당하는 상품이 없습니다.
+      </Row>
+    </Container>
+  }else{
+    return <Container>
+    <Row>
+      {
+        productList?.map((item,index) => {
+          return <Col lg={3} key={index}><ProductCard item={item}/></Col>
+        })
+      }
+    </Row>
+  </Container>
+  }
 }
 
 export default ProductPage
+
+
+// productList.length !== 0 ? (
+//   <div>
+//   <Container>
+//     <Row>
+//       {
+//         productList?.map((item,index) => {
+//           return <Col lg={3} key={index}><ProductCard item={item}/></Col>
+//         })
+//       }
+//     </Row>
+//   </Container>
+// </div>
+// ) : (
+//   <div>
+//     <Container>
+//       <Row>
+//         해당하는 상품이 없습니다.
+//       </Row>
+//     </Container>
+//   </div>
+// )
