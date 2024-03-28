@@ -69,7 +69,6 @@ const lineLength = query?.length;
 const isFavProduct = () => {
   if(localStorage.getItem('favId') !== null && JSON.parse(localStorage.getItem('favId')).includes(item.id)){  
     document.querySelector(`.btn${item.id}`).classList.add('active');
-    console.log('its included');
   }
 }
 
