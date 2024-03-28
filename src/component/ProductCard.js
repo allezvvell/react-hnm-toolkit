@@ -23,28 +23,29 @@ const ProductCard = ({item}) => {
         event.target.parentElement.classList.add('active');
       }else{
         const newFavList = favList.filter((num) => num !== item.id);
-        console.log(newFavList);
         localStorage.setItem('favId',JSON.stringify(newFavList));
         event.target.parentElement.classList.remove('active');
       }
     }
   }
-  const isFavProduct = () => {
-    if(localStorage.getItem('favId') !== null && JSON.parse(localStorage.getItem('favId')).includes(item.id)){  
-      document.querySelector(`.btn${item.id}`)?.classList.add('active');
-    }
-  }
-  
-  useEffect(() => {
-    isFavProduct();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
 
   const query = searchParams.get('q') || '';
   const itemTitle = item?.title;
   const titleLineStart = itemTitle.indexOf(query);
   const lineLength = query?.length;
 
+
+const isFavProduct = () => {
+  if(localStorage.getItem('favId') !== null && JSON.parse(localStorage.getItem('favId')).includes(item.id)){  
+    document.querySelector(`.btn${item.id}`)?.classList.add('active');
+  }
+}
+
+useEffect(() => {
+  isFavProduct();
+  console.log('searchParams 체인지');
+  //eslint-disable-next-line react-hooks/exhaustive-deps
+},[searchParams])
 
   return (
     <div className='card' onClick={goToDetail}>

@@ -16,10 +16,10 @@ const ProductPage = () => {
     } catch (error) {
       console.log(error);
     }
-      }     
+      }    
+
   useEffect(() => {
     getProductList();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   },[searchParams]);
 
   if(!productList){

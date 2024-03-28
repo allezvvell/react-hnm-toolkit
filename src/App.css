@@ -28,6 +28,9 @@ body {
 }
 
 /* navbar */
+header {
+    margin-bottom: 30px;
+}
 .login-wrap {
     position: relative;
     padding: 30px;
@@ -76,10 +79,28 @@ body {
 .menu-wrap ul {
     display: flex;
 }
+.menu-wrap li {
+    padding: 0 10px;
+}
 .menu-wrap li a {
+    position: relative;
     display: block;
-    padding: 10px;
+    padding: 0;
     font-size: 16px;
+}
+.menu-wrap li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: #000;
+    /* transition: width 0.3s ease-in-out; */
+}
+.menu-wrap li a:hover::before {
+    width: 100%;
 }
 
 .menu-wrap .form-box {
@@ -112,6 +133,7 @@ body {
     background: #fff;
     margin-bottom: 15px;
     transition: all 0.3s ease-in-out;
+    cursor: pointer;
 }
 .card:hover {
     transform: scale(1.05);
