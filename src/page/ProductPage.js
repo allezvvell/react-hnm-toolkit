@@ -40,7 +40,7 @@ const ProductPage = () => {
     <Row>
       {
         productList?.map((item,index) => {
-          return <Col lg={3} key={index}><ProductCard item={item} productList={productList} setProductList={setProductList}/></Col>
+          return <Col lg={3} key={index}><ProductCard item={item}/></Col>
         })
       }
     </Row>

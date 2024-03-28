@@ -1,13 +1,15 @@
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
 
-const ProductCard = ({item,productList,setProductList}) => {
+
+const ProductCard = ({item}) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [random,setRandom] = useState(0);
   const goToDetail = () => {
     navigate(`/products/${item.id}`);
   }
@@ -66,23 +68,12 @@ const titleLineStart = itemTitle.indexOf(query);
 const lineLength = query?.length;
 
 
-const isFavProduct = () => {
-  if(localStorage.getItem('favId') !== null && JSON.parse(localStorage.getItem('favId')).includes(item.id)){  
-    document.querySelector(`.btn${item.id}`).classList.add('active');
-  }
-}
-
-useEffect(() => {
-  isFavProduct();
-  //eslint-disable-next-line react-hooks/exhaustive-deps
-},[searchParams])
-
   return (
     <div className='card' onClick={goToDetail}>
       <div className='img-box'>
         {item?.fav === true ? <button>취향</button>:''}
         <img src={item?.img} alt={item?.title}/>
-        <button className={`btn${item.id} fav-btn`} onClick={(e) => {addToFav(e)}}><FontAwesomeIcon icon={faHeart} /></button>
+        <button className={`btn${item.id} fav-btn ${localStorage.getItem('favId') !== null && JSON.parse(localStorage.getItem('favId')).includes(item.id) ? 'active' : ''}`} onClick={(e) => {addToFav(e)}}><FontAwesomeIcon icon={faHeart} /></button>
       </div>
       <span className='choice'>{item?.choice === true ? 'Conscious Choice' : ''}</span>
       {<h3>{itemTitle.slice(0,titleLineStart)}<span className='yellow'>{itemTitle.slice(titleLineStart,titleLineStart+lineLength)}</span>{itemTitle.slice(titleLineStart+lineLength,itemTitle.length)}</h3>}
