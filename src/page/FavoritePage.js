@@ -18,9 +18,6 @@ const FavoritePage = () => {
     setFavProducts(favData);   
   }
   const navigate = useNavigate();
-  const goDetailPage = (id) => {
-    navigate(`/products/${id}`)
-  }
 
   useEffect(()=>{
     getFavProduct();

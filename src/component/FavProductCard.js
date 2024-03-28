@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const FavProductCard = ({item,setFavList,favList}) => {
     const navigate = useNavigate();
     const goDetailPage = () => {
-        navigate(`/products/${item.id}`)
+        navigate(`/products/${item.id}`);
   }
     const removeFavProduct = (event) => {
         event.stopPropagation();
@@ -20,7 +20,7 @@ const FavProductCard = ({item,setFavList,favList}) => {
   return (
     <div className='fav-card' onClick={()=>{goDetailPage()}}>
         <div className='img-box'>
-            <img src={item.img}/>
+            <img src={item.img} alt={item.title}/>
             <button className='remove-btn' onClick={(e)=>{removeFavProduct(e)}}><FontAwesomeIcon icon={faTrash}/></button>
         </div>
         <h3>{item.title}</h3>

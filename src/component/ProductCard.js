@@ -36,7 +36,8 @@ const ProductCard = ({item}) => {
   }
   
   useEffect(() => {
-    isFavProduct()
+    isFavProduct();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const query = searchParams.get('q') || '';
