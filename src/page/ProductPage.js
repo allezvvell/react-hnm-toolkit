@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container,Row,Col } from 'react-bootstrap';
+import { Container,Row,Col, Alert } from 'react-bootstrap';
 import ProductCard from '../component/ProductCard';
 import { useSearchParams } from 'react-router-dom';
 
@@ -12,8 +12,7 @@ const ProductPage = () => {
     try {
       let res = await fetch(URL);
       let data = await res.json();
-      const newData = [...data].sort(()=>Math.random()-0.5);
-      setProductList(newData);
+      setProductList(data);
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +31,7 @@ const ProductPage = () => {
   }else if (productList && productList.length === 0){
     return <Container>
       <Row>
-        해당하는 상품이 없습니다.
+        <Alert variant='danger'>검색하신 {searchParams.get('q')}에 해당하는 상품이 없습니다.</Alert>
       </Row>
     </Container>
   }else{
@@ -49,26 +48,3 @@ const ProductPage = () => {
 }
 
 export default ProductPage
-
-
-// productList.length !== 0 ? (
-//   <div>
-//   <Container>
-//     <Row>
-//       {
-//         productList?.map((item,index) => {
-//           return <Col lg={3} key={index}><ProductCard item={item}/></Col>
-//         })
-//       }
-//     </Row>
-//   </Container>
-// </div>
-// ) : (
-//   <div>
-//     <Container>
-//       <Row>
-//         해당하는 상품이 없습니다.
-//       </Row>
-//     </Container>
-//   </div>
-// )

@@ -1,11 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import ProductPage from './page/ProductPage';
 import LogInPage from './page/LogInPage';
 import NavBar from './component/NavBar';
-import { useState } from 'react';
 import PrivateRoute from './route/PrivateRoute';
+import FavoritePage from './page/FavoritePage';
 
 // 1. 전체상품, 로그인, 상세상품 페이지
 // 1-1 네비게이션바 만들기
@@ -35,6 +36,7 @@ function App() {
           path='/login' 
           element={<LogInPage setAuthenticate={setAuthenticate}/>} 
         />
+        <Route path='favorite' element={<FavoritePage />}/>
         <Route 
           path='/products/:id' 
           element={<PrivateRoute authenticate={authenticate}/>} 
