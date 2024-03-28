@@ -1,6 +1,6 @@
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
@@ -9,7 +9,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 const ProductCard = ({item}) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [random,setRandom] = useState(0);
   const goToDetail = () => {
     navigate(`/products/${item.id}`);
   }
