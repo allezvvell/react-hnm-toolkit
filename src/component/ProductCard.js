@@ -16,15 +16,6 @@ const ProductCard = ({item,productList,setProductList}) => {
     if(localStorage.getItem('favId') === null){
       localStorage.setItem('favId',JSON.stringify([item.id]));
       event.target.parentElement.classList.add('active');
-      const newProductList = productList.map((obj) => {
-        if(obj.id === item.id){
-          obj.fav = true;
-          return obj
-        }else{
-          return obj
-        }
-      });
-      setProductList(newProductList);
     }else{
       const favList = JSON.parse(localStorage.getItem('favId'));
       if(favList.includes(item.id) === false){
