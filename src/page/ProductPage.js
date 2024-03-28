@@ -3,7 +3,7 @@ import { Container,Row,Col, Alert } from 'react-bootstrap';
 import ProductCard from '../component/ProductCard';
 import { useSearchParams } from 'react-router-dom';
 
-const ProductPage = ({}) => { 
+const ProductPage = () => { 
   const [productList,setProductList] = useState(null);
   const [searchParams] = useSearchParams();
   const getProductList = async () => {
