@@ -3,7 +3,7 @@ import { Container,Row,Col, Alert } from 'react-bootstrap';
 import ProductCard from '../component/ProductCard';
 import { useSearchParams } from 'react-router-dom';
 
-const ProductPage = () => { 
+const ProductPage = ({}) => { 
   const [productList,setProductList] = useState(null);
   const [searchParams] = useSearchParams();
   const getProductList = async () => {
@@ -40,7 +40,7 @@ const ProductPage = () => {
     <Row>
       {
         productList?.map((item,index) => {
-          return <Col lg={3} key={index}><ProductCard item={item}/></Col>
+          return <Col lg={3} key={index}><ProductCard item={item} productList={productList} setProductList={setProductList}/></Col>
         })
       }
     </Row>
