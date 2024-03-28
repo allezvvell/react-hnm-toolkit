@@ -11,21 +11,51 @@ const ProductCard = ({item,productList,setProductList}) => {
   const goToDetail = () => {
     navigate(`/products/${item.id}`);
   }
-  const addToFav = (event) => {
+  const addToFav = async (event) => {
     event.stopPropagation();
     if(localStorage.getItem('favId') === null){
       localStorage.setItem('favId',JSON.stringify([item.id]));
       event.target.parentElement.classList.add('active');
+      const res = await fetch(`https://my-json-server.typicode.com/allezvvell/react-hnm/products/${item.id}`,{
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'PATCH',
+        body: JSON.stringify( { fav: true } ) 
+      });
+      const data = await res.json();
+      console.log(data);
     }else{
       const favList = JSON.parse(localStorage.getItem('favId'));
-      if(favList.includes(item.id) === false){
+      if(!favList.includes(item.id)){
         favList.push(item.id);
         localStorage.setItem('favId',JSON.stringify(favList));
         event.target.parentElement.classList.add('active');
+        const res = await fetch(`https://my-json-server.typicode.com/allezvvell/react-hnm/products/${item.id}`,{
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'PATCH',
+          body: JSON.stringify( { fav: true } ) 
+        });
+        const data = await res.json();
+        console.log(data);
       }else{
         const newFavList = favList.filter((num) => num !== item.id);
         localStorage.setItem('favId',JSON.stringify(newFavList));
         event.target.parentElement.classList.remove('active');
+        const res = await fetch(`https://my-json-server.typicode.com/allezvvell/react-hnm/products/${item.id}`,{
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'PATCH',
+          body: JSON.stringify( { fav: false } ) 
+        });
+        const data = await res.json();
+        console.log(data);
       }
     }
   }
