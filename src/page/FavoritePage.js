@@ -17,7 +17,6 @@ const FavoritePage = () => {
     );
     setFavProducts(favData);   
   }
-  const navigate = useNavigate();
 
   useEffect(()=>{
     getFavProduct();
