@@ -154,6 +154,16 @@ header {
     background: transparent;
     border: none;
 }
+@keyframes jumping {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+    100% {transform: translateY(0);}
+}
+.card .img-box .fav-btn:not(.active):hover {
+    animation-name: jumping;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
 .card .img-box .fav-btn.active {
     color: red;
 }
