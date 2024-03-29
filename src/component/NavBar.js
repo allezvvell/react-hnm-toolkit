@@ -56,6 +56,7 @@ const NavBar = ({authenticate,setAuthenticate,productList,cartList,setCartList})
 
     useEffect(()=>{
       getSum()
+      //eslint-disable-next-line react-hooks/exhaustive-deps
     },[cartList])
 
   return (
@@ -70,7 +71,7 @@ const NavBar = ({authenticate,setAuthenticate,productList,cartList,setCartList})
             {cartList.length !== 0 ? (
               <ul>
                 {productList.filter(item => cartList.includes(item.id)).map((product,index) => {return <li key={index} id={`li-${product.id}`}>
-                  <span className='img-box'><img src={product.img}/></span>
+                  <span className='img-box'><img src={product.img} alt={product.img}/></span>
                   <div className='txt-box'><div>{product.title}</div><span className='item-price'>₩{product.price}</span></div>
                   <button className='delete-btn' onClick={(e)=>{deleteItem(e)}}><FontAwesomeIcon icon={faXmark} /></button>
                 </li>})}
