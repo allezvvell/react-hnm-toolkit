@@ -7,6 +7,8 @@ import LogInPage from './page/LogInPage';
 import NavBar from './component/NavBar';
 import PrivateRoute from './route/PrivateRoute';
 import FavoritePage from './page/FavoritePage';
+import Footer from './component/Footer';
+
 
 // 1. 전체상품, 로그인, 상세상품 페이지
 // 1-1 네비게이션바 만들기
@@ -20,17 +22,22 @@ import FavoritePage from './page/FavoritePage';
 // 9. 상품을 검색 할 수 있다
 
 function App() {
+  const [productList,setProductList] = useState(null);
   const [authenticate,setAuthenticate] = useState(false);
+  const [cartList,setCartList] = useState([]);
   return (
     <div>
       <NavBar 
         authenticate={authenticate} 
         setAuthenticate={setAuthenticate}
+        productList={productList}
+        cartList={cartList}
+        setCartList={setCartList}
       />
       <Routes>
         <Route 
           path='/' 
-          element={<ProductPage />} 
+          element={<ProductPage productList={productList} setProductList={setProductList}/>} 
         />
         <Route 
           path='/login' 
@@ -39,9 +46,10 @@ function App() {
         <Route path='favorite' element={<FavoritePage />}/>
         <Route 
           path='/products/:id' 
-          element={<PrivateRoute authenticate={authenticate}/>} 
+          element={<PrivateRoute authenticate={authenticate} setCartList={setCartList} cartList={cartList}/>} 
         />
       </Routes>
+      <Footer />
     </div>
   );
 }

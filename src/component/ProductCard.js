@@ -17,46 +17,16 @@ const ProductCard = ({item}) => {
     if(localStorage.getItem('favId') === null){
       localStorage.setItem('favId',JSON.stringify([item.id]));
       event.target.parentElement.classList.add('active');
-      const res = await fetch(`https://my-json-server.typicode.com/allezvvell/react-hnm/products/${item.id}`,{
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'PATCH',
-        body: JSON.stringify( { fav: true } ) 
-      });
-      const data = await res.json();
-      console.log(data);
     }else{
       const favList = JSON.parse(localStorage.getItem('favId'));
       if(!favList.includes(item.id)){
         favList.push(item.id);
         localStorage.setItem('favId',JSON.stringify(favList));
         event.target.parentElement.classList.add('active');
-        const res = await fetch(`https://my-json-server.typicode.com/allezvvell/react-hnm/products/${item.id}`,{
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: 'PATCH',
-          body: JSON.stringify( { fav: true } ) 
-        });
-        const data = await res.json();
-        console.log(data);
       }else{
         const newFavList = favList.filter((num) => num !== item.id);
         localStorage.setItem('favId',JSON.stringify(newFavList));
         event.target.parentElement.classList.remove('active');
-        const res = await fetch(`https://my-json-server.typicode.com/allezvvell/react-hnm/products/${item.id}`,{
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: 'PATCH',
-          body: JSON.stringify( { fav: false } ) 
-        });
-        const data = await res.json();
-        console.log(data);
       }
     }
   }
@@ -64,7 +34,7 @@ const ProductCard = ({item}) => {
 const query = searchParams.get('q') || '';
 const itemTitle = item?.title;
 const titleLineStart = itemTitle.indexOf(query);
-const lineLength = query?.length;
+const lineLength = query.length;
 
 
   return (

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 
 
-const DetailPage = () => {
+const DetailPage = ({setCartList,cartList}) => {
   const [productDetail,setProductDetail] = useState(null);
   const {id} = useParams();
   const getProductDetail = async () => {
@@ -16,6 +16,9 @@ const DetailPage = () => {
     } catch (error) {
       console.log(error);
     }
+  }
+  const addCart = () => {
+    setCartList([...cartList,parseInt(id)]);
   }
   useEffect(()=>{
     getProductDetail();
@@ -37,7 +40,8 @@ const DetailPage = () => {
               {productDetail?.size.map((size,index) => <DropdownItem key={index}>{size}</DropdownItem>)}
             </DropdownMenu>
           </Dropdown>
-          <button className='btn btn-dark btn-cart'>추가</button>
+          <button className='btn btn-dark btn-cart' onClick={addCart}>쇼핑백 담기</button>
+          <button className='btn btn-danger btn-buy'>바로 구매하기</button>
         </div>
       </div>
     </div>

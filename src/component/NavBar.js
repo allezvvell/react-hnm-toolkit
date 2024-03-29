@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faBars, faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faSearch, faShoppingBag, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 
 
-const NavBar = ({authenticate,setAuthenticate}) => {
+
+const NavBar = ({authenticate,setAuthenticate,productList,cartList,setCartList}) => {
     const navigate = useNavigate();
+    const [sum,setSum] = useState(0);
     const menuList = [
         '여성',
         'Divied',
@@ -40,15 +42,50 @@ const NavBar = ({authenticate,setAuthenticate}) => {
     const mobileMenuOff = () => {
       mobileMenu.classList.remove('active');
     }
+    const getSum = () => {
+      const cartItems = productList?.filter(item => cartList.includes(item.id));
+      const totalPrice = cartItems?.reduce((sum,value)=>{return sum + value.price},0);
+      setSum(totalPrice);
+    }
+    const deleteItem = (e) => {
+      const parentId = e.target.closest('li').id;
+      const itemId = parentId.substr(parentId.indexOf('-')+1);
+      const newCartList = cartList.filter(item => item !== parseInt(itemId));
+      setCartList(newCartList);
+    }
+
+    useEffect(()=>{
+      getSum()
+    },[cartList])
+
   return (
     <header>
       <div className='login-wrap'>
-        <button onClick={handleLoginbtn} className={authenticate.toString()} id='login-btn'><FontAwesomeIcon icon={faUser} /></button>
-        <button className='go-fav-btn' onClick={goToFav}><FontAwesomeIcon icon={faHeart} />즐겨찾기</button>
         <button className='hamburger' onClick={mobileMenuOn}><FontAwesomeIcon icon={faBars} /></button>
+        <button onClick={handleLoginbtn} className={authenticate.toString()} id='login-btn'><FontAwesomeIcon icon={faUser} /></button>
+        <button className='go-fav-btn' onClick={goToFav}><FontAwesomeIcon icon={faHeart} /><span>즐겨찾기</span></button>
+        <div className='shop-preview'>
+        <button className='cart-btn'><FontAwesomeIcon icon={faShoppingBag} /><span>쇼핑백</span></button>
+          <div className='preview-wrap'>
+            {cartList.length !== 0 ? (
+              <ul>
+                {productList.filter(item => cartList.includes(item.id)).map((product,index) => {return <li key={index} id={`li-${product.id}`}>
+                  <span className='img-box'><img src={product.img}/></span>
+                  <div className='txt-box'><div>{product.title}</div><span className='item-price'>₩{product.price}</span></div>
+                  <button className='delete-btn' onClick={(e)=>{deleteItem(e)}}><FontAwesomeIcon icon={faXmark} /></button>
+                </li>})}
+              </ul>
+            ):(<p className='empty'>쇼핑백이 비어 있습니다.</p>)}
+            <div className='sum-wrap'>
+              <span>합계</span>
+              <span className='sum'>₩{sum}</span>
+            </div>
+            {cartList.length === 0 || <button className='pay-btn'>결제</button>}
+          </div>
+        </div>
       </div>
       <div className='logo-wrap'>
-        <Link to='/'><img src='./assets/hnm-logo.png' alt='H&M로고' width='100px' /></Link>
+        <Link to='/'><img src='./assets/hnm-logo.png' alt='H&M로고' width='60px' /></Link>
       </div>
       <div className='menu-wrap'>
         <nav className='menu'>

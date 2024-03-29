@@ -31,6 +31,7 @@ const LogInPage = ({setAuthenticate}) => {
             required
             />
           <Button variant="danger" type='submit'>Login</Button>
+          <Button variant="dark">Join</Button>
         </form>
       </Container>
     </div>

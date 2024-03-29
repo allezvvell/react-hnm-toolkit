@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Container,Row,Col, Alert } from 'react-bootstrap';
 import ProductCard from '../component/ProductCard';
 import { useSearchParams } from 'react-router-dom';
+import { ClipLoader } from 'react-spinners';
 
-const ProductPage = () => { 
-  const [productList,setProductList] = useState(null);
+
+const ProductPage = ({productList,setProductList}) => { 
+  
+  const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const getProductList = async () => {
     const query = searchParams.get('q') || '';
     let URL = `https://my-json-server.typicode.com/allezvvell/react-hnm/products/?q=${query}`; 
+    setLoading(true);
     try {
       let res = await fetch(URL);
       let data = await res.json();
@@ -16,6 +20,7 @@ const ProductPage = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
       }    
 
   useEffect(() => {
@@ -25,8 +30,13 @@ const ProductPage = () => {
 
   if(!productList){
     return <Container>
-      <Row>
-        상품을 불러오는중입니다.
+      <Row className='loading-row'>
+        <ClipLoader
+          loading={loading}
+          color={'#CC071E'}
+          size={100} 
+          data-testid="clip-loader"
+        />
       </Row>
     </Container>
   }else if (productList && productList.length === 0){
@@ -40,7 +50,7 @@ const ProductPage = () => {
     <Row>
       {
         productList?.map((item,index) => {
-          return <Col lg={3} key={index}><ProductCard item={item}/></Col>
+          return <Col lg={3} md={6} key={index}><ProductCard item={item}/></Col>
         })
       }
     </Row>
