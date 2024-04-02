@@ -41,7 +41,6 @@ const itemTitle = item?.title;
 const titleLineStart = itemTitle.indexOf(query);
 const lineLength = query.length;
 
-
   return (
     <div className='card' onClick={goToDetail}>
       <div className='img-box'>
