@@ -7,11 +7,10 @@ import { productAction } from '../redux/actions/productAction';
 
 
 
-const DetailPage = ({}) => {
+const DetailPage = () => {
   const {id} = useParams();
   const dispatch = useDispatch();
   const productDetail = useSelector(state=>state.product.productDetail);
-  const cartList = useSelector(state => state.product.cartList);
   const getProductDetail = async () => {
     dispatch(productAction.getProductDetail(id)) 
   }

@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 import ProductPage from './page/ProductPage';
 import LogInPage from './page/LogInPage';
 import NavBar from './component/NavBar';
