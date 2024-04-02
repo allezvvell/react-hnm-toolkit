@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { productAction } from '../redux/actions/productAction';
 
 
 
-const DetailPage = ({setCartList,cartList}) => {
-  const [productDetail,setProductDetail] = useState(null);
+
+const DetailPage = ({}) => {
   const {id} = useParams();
+  const dispatch = useDispatch();
+  const productDetail = useSelector(state=>state.product.productDetail);
+  const cartList = useSelector(state => state.product.cartList);
   const getProductDetail = async () => {
-    const URL = `https://my-json-server.typicode.com/allezvvell/react-hnm/products/${id}`;
-    try {
-      const response = await fetch(URL);
-      const data = await response.json();
-      setProductDetail(data);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(productAction.getProductDetail(id)) 
   }
   const addCart = () => {
-    setCartList([...cartList,parseInt(id)]);
+    dispatch({type:'ADD_CART',payload:{id:parseInt(id)}})
   }
   useEffect(()=>{
     getProductDetail();

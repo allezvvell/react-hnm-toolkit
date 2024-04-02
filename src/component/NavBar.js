@@ -3,13 +3,18 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faBars, faSearch, faShoppingBag, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 
-const NavBar = ({authenticate,setAuthenticate,productList,cartList,setCartList}) => {
+const NavBar = () => {
     const navigate = useNavigate();
     const [sum,setSum] = useState(0);
+    const authenticate = useSelector(state=>state.auth.authenticate);
+    const productList = useSelector(state=>state.product.productList);
+    const cartList = useSelector(state => state.product.cartList);
+    const dispatch = useDispatch();
     const menuList = [
         '여성',
         'Divied',
@@ -28,7 +33,7 @@ const NavBar = ({authenticate,setAuthenticate,productList,cartList,setCartList})
     }
     const handleLoginbtn = () => {
       if(authenticate === true){
-        setAuthenticate(false)
+        dispatch({type:'SET_AUTH_FALSE'});
       }
       navigate('/login');
     }
@@ -51,7 +56,7 @@ const NavBar = ({authenticate,setAuthenticate,productList,cartList,setCartList})
       const parentId = e.target.closest('li').id;
       const itemId = parentId.substr(parentId.indexOf('-')+1);
       const newCartList = cartList.filter(item => item !== parseInt(itemId));
-      setCartList(newCartList);
+      dispatch({type : 'DELETE_CART',payload : {newCartList}})
     }
 
     useEffect(()=>{

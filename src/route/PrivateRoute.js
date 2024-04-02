@@ -1,9 +1,11 @@
-import React from 'react'
-import DetailPage from '../page/DetailPage'
-import { Navigate } from 'react-router-dom'
+import React from 'react';
+import DetailPage from '../page/DetailPage';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const PrivateRoute = ({authenticate,setCartList,cartList}) => {
-  return authenticate === true?<DetailPage setCartList={setCartList} cartList={cartList}/> : <Navigate to={'/login'}/>
+const PrivateRoute = () => {
+  const authenticate = useSelector(state => state.auth.authenticate)
+  return authenticate === true?<DetailPage /> : <Navigate to={'/login'}/>
 }
 
 export default PrivateRoute

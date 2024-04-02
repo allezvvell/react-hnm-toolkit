@@ -3,25 +3,23 @@ import { Container,Row,Col, Alert } from 'react-bootstrap';
 import ProductCard from '../component/ProductCard';
 import { useSearchParams } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
+import { productAction } from '../redux/actions/productAction';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-const ProductPage = ({productList,setProductList}) => { 
+
+const ProductPage = () => { 
   
   const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
-  const getProductList = async () => {
+  const dispatch = useDispatch();
+  const productList = useSelector(state=>state.product.productList);
+  const getProductList = () => {
     const query = searchParams.get('q') || '';
-    let URL = `https://my-json-server.typicode.com/allezvvell/react-hnm/products/?q=${query}`; 
     setLoading(true);
-    try {
-      let res = await fetch(URL);
-      let data = await res.json();
-      setProductList(data);
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(productAction.getProductList(query));
     setLoading(false);
-      }    
+    }    
 
   useEffect(() => {
     getProductList();
