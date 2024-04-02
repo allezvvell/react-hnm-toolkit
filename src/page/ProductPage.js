@@ -16,11 +16,7 @@ const ProductPage = () => {
   const productList = useSelector(state=>state.product.productList);
   const getProductList = () => {
     const query = searchParams.get('q') || '';
-    setLoading(true);
-    console.log(loading);
-    dispatch(productAction.getProductList(query));
-    setLoading(false);
-    console.log(loading);
+    dispatch(productAction.getProductList(query,setLoading));
     }    
 
   useEffect(() => {

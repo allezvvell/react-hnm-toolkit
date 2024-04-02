@@ -15,9 +15,7 @@ const FavoritePage = () => {
   const favProducts = useSelector(state => state.product.favProducts);
   const dispatch = useDispatch();
   const getFavProduct = async () => {
-    setLoading(true);
-    dispatch(productAction.getFavProduct(favList));
-    setLoading(false);  
+    dispatch(productAction.getFavProduct(favList,setLoading));  
   }
 
   useEffect(()=>{

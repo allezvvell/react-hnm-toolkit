@@ -1,13 +1,15 @@
-function getProductList(query){
+function getProductList(query,setLoading){
     return async (dispatch,getState)=>{
         let URL = `https://my-json-server.typicode.com/allezvvell/react-hnm/products/?q=${query}`; 
+        setLoading(true);
         try {
             let res = await fetch(URL);
             let data = await res.json();
             dispatch({type:'GET_PRODUCT',payload:{data}});
         } catch (error) {
             console.log(error)
-        }        
+        } 
+        setLoading(false);       
     }
 }
 
@@ -24,9 +26,10 @@ function getProductDetail(id){
     }
 }
 
-function getFavProduct(favList){
+function getFavProduct(favList,setLoading){
     return async(dispatch,getState) => {
         const URL = `https://my-json-server.typicode.com/allezvvell/react-hnm/products`;
+        setLoading(true)
         try {
             const response = await fetch(URL);
             const data = await response.json();
@@ -37,6 +40,7 @@ function getFavProduct(favList){
           } catch (error) {
             console.log(error);
           }
+          setLoading(false)
     }
 }
 
