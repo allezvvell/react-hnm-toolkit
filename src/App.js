@@ -22,31 +22,23 @@ import Footer from './component/Footer';
 // 9. 상품을 검색 할 수 있다
 
 function App() {
-  const [productList,setProductList] = useState(null);
-  const [authenticate,setAuthenticate] = useState(false);
-  const [cartList,setCartList] = useState([]);
   return (
     <div>
       <NavBar 
-        authenticate={authenticate} 
-        setAuthenticate={setAuthenticate}
-        productList={productList}
-        cartList={cartList}
-        setCartList={setCartList}
       />
       <Routes>
         <Route 
           path='/' 
-          element={<ProductPage productList={productList} setProductList={setProductList}/>} 
+          element={<ProductPage />} 
         />
         <Route 
           path='/login' 
-          element={<LogInPage setAuthenticate={setAuthenticate}/>} 
+          element={<LogInPage />} 
         />
         <Route path='favorite' element={<FavoritePage />}/>
         <Route 
           path='/products/:id' 
-          element={<PrivateRoute authenticate={authenticate} setCartList={setCartList} cartList={cartList}/>} 
+          element={<PrivateRoute />} 
         />
       </Routes>
       <Footer />

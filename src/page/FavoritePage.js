@@ -3,27 +3,20 @@ import { Col, Container, Row } from 'react-bootstrap';
 import FavProductCard from '../component/FavProductCard';
 import { ClipLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { productAction } from '../redux/actions/productAction';
 
 
 
 
 const FavoritePage = () => {
-  const [favProducts,setFavProducts] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [favList,setFavList] = useState(JSON.parse(localStorage.getItem('favId')));
+  const favList = useSelector(state=>state.product.favList);
+  const favProducts = useSelector(state => state.product.favProducts);
+  const dispatch = useDispatch();
   const getFavProduct = async () => {
-    const URL = `https://my-json-server.typicode.com/allezvvell/react-hnm/products`;
     setLoading(true);
-    try {
-      const response = await fetch(URL);
-      const data = await response.json();
-      const favData = data.filter((item) => 
-      favList.includes(item.id)
-      );
-      setFavProducts(favData); 
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(productAction.getFavProduct(favList));
     setLoading(false);  
   }
 
@@ -57,7 +50,7 @@ const FavoritePage = () => {
       <Row>
           {favProducts?.map((item,index)=>{
             return <Col key={index} lg={3}>
-              <FavProductCard item={item} setFavList={setFavList} favList={favList}/>
+              <FavProductCard item={item} />
           </Col>})}
       </Row>
     </Container>

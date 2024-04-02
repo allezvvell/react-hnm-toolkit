@@ -1,6 +1,7 @@
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 
@@ -9,6 +10,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 const ProductCard = ({item}) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const dispatch = useDispatch();
   const goToDetail = () => {
     navigate(`/products/${item.id}`);
   }
@@ -16,16 +18,19 @@ const ProductCard = ({item}) => {
     event.stopPropagation();
     if(localStorage.getItem('favId') === null){
       localStorage.setItem('favId',JSON.stringify([item.id]));
+      dispatch({type:'SET_FAV_LIST',payload:{favlist:[item.id]}});
       event.target.parentElement.classList.add('active');
     }else{
       const favList = JSON.parse(localStorage.getItem('favId'));
       if(!favList.includes(item.id)){
         favList.push(item.id);
         localStorage.setItem('favId',JSON.stringify(favList));
+        dispatch({type:'SET_FAV_LIST',payload:{favlist:favList}});
         event.target.parentElement.classList.add('active');
       }else{
         const newFavList = favList.filter((num) => num !== item.id);
         localStorage.setItem('favId',JSON.stringify(newFavList));
+        dispatch({type:'SET_FAV_LIST',payload:{favlist:newFavList}});
         event.target.parentElement.classList.remove('active');
       }
     }
@@ -40,7 +45,6 @@ const lineLength = query.length;
   return (
     <div className='card' onClick={goToDetail}>
       <div className='img-box'>
-        {item?.fav === true ? <button>취향</button>:''}
         <img src={item?.img} alt={item?.title}/>
         <button className={`btn${item.id} fav-btn ${localStorage.getItem('favId') !== null && JSON.parse(localStorage.getItem('favId')).includes(item.id) ? 'active' : ''}`} onClick={(e) => {addToFav(e)}}><FontAwesomeIcon icon={faHeart} /></button>
       </div>
