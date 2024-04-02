@@ -40,7 +40,6 @@ const lineLength = query.length;
   return (
     <div className='card' onClick={goToDetail}>
       <div className='img-box'>
-        {item?.fav === true ? <button>취향</button>:''}
         <img src={item?.img} alt={item?.title}/>
         <button className={`btn${item.id} fav-btn ${localStorage.getItem('favId') !== null && JSON.parse(localStorage.getItem('favId')).includes(item.id) ? 'active' : ''}`} onClick={(e) => {addToFav(e)}}><FontAwesomeIcon icon={faHeart} /></button>
       </div>
