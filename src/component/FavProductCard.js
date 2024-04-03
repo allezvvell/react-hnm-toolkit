@@ -16,7 +16,7 @@ const FavProductCard = ({item}) => {
         event.stopPropagation();
         const currentFavList = JSON.parse(localStorage.getItem('favId'));
         const newFavList = currentFavList.filter(id => id!==item.id);
-        dispatch(productActions.deleteCart({newFavList}))
+        dispatch(productActions.deleteFavList({newFavList}))
         localStorage.setItem('favId',JSON.stringify(newFavList));
     }
   return (

@@ -50,7 +50,7 @@ const NavBar = () => {
       mobileMenu.classList.remove('active');
     }
     const getSum = () => {
-      const cartItems = productList?.filter(item => cartList.includes(item.id));
+      const cartItems = productList?.filter(item => cartList?.includes(item.id));
       const totalPrice = cartItems?.reduce((sum,value)=>{return sum + value.price},0);
       setSum(totalPrice);
     }
@@ -76,9 +76,9 @@ const NavBar = () => {
         <div className='shop-preview'>
         <button className='cart-btn'><FontAwesomeIcon icon={faShoppingBag} /><span>쇼핑백</span></button>
           <div className='preview-wrap'>
-            {cartList.length !== 0 ? (
+            {cartList?.length !== 0 ? (
               <ul>
-                {productList?.filter(item => cartList.includes(item.id)).map((product,index) => {return <li key={index} id={`li-${product.id}`}>
+                {productList?.filter(item => cartList?.includes(item.id)).map((product,index) => {return <li key={index} id={`li-${product.id}`}>
                   <span className='img-box'><img src={product.img} alt={product.img}/></span>
                   <div className='txt-box'><div>{product.title}</div><span className='item-price'>₩{product.price}</span></div>
                   <button className='delete-btn' onClick={(e)=>{deleteItem(e)}}><FontAwesomeIcon icon={faXmark} /></button>
@@ -89,7 +89,7 @@ const NavBar = () => {
               <span>합계</span>
               <span className='sum'>₩{sum}</span>
             </div>
-            {cartList.length === 0 || <button className='pay-btn'>결제</button>}
+            {cartList?.length === 0 || <button className='pay-btn'>결제</button>}
           </div>
         </div>
       </div>
