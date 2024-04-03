@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faBars, faSearch, faShoppingBag, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { productActions } from '../redux/reducers/productSlice';
+import { authActions } from '../redux/reducers/authSlice';
 
 
 
@@ -33,7 +35,7 @@ const NavBar = () => {
     }
     const handleLoginbtn = () => {
       if(authenticate === true){
-        dispatch({type:'SET_AUTH_FALSE'});
+        dispatch(authActions.logoutSucess());
       }
       navigate('/login');
     }
@@ -56,7 +58,8 @@ const NavBar = () => {
       const parentId = e.target.closest('li').id;
       const itemId = parentId.substr(parentId.indexOf('-')+1);
       const newCartList = cartList.filter(item => item !== parseInt(itemId));
-      dispatch({type : 'DELETE_CART',payload : {newCartList}})
+      //dispatch({type : 'DELETE_CART',payload : {newCartList}});
+      dispatch(productActions.deleteCart({newCartList}));
     }
 
     useEffect(()=>{
@@ -75,7 +78,7 @@ const NavBar = () => {
           <div className='preview-wrap'>
             {cartList.length !== 0 ? (
               <ul>
-                {productList.filter(item => cartList.includes(item.id)).map((product,index) => {return <li key={index} id={`li-${product.id}`}>
+                {productList?.filter(item => cartList.includes(item.id)).map((product,index) => {return <li key={index} id={`li-${product.id}`}>
                   <span className='img-box'><img src={product.img} alt={product.img}/></span>
                   <div className='txt-box'><div>{product.title}</div><span className='item-price'>₩{product.price}</span></div>
                   <button className='delete-btn' onClick={(e)=>{deleteItem(e)}}><FontAwesomeIcon icon={faXmark} /></button>

@@ -4,18 +4,19 @@ import FavProductCard from '../component/FavProductCard';
 import { ClipLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { productAction } from '../redux/actions/productAction';
+import { fetchFav, productActions } from '../redux/reducers/productSlice';
 
 
 
 
 const FavoritePage = () => {
-  const [loading, setLoading] = useState(false);
   const favList = useSelector(state=>state.product.favList);
   const favProducts = useSelector(state => state.product.favProducts);
+  const loadingFav = useSelector(state=>state.product.loadingFav);
   const dispatch = useDispatch();
-  const getFavProduct = async () => {
-    dispatch(productAction.getFavProduct(favList,setLoading));  
+  const getFavProduct = () => {
+    dispatch(productActions.trueLoadingFav());
+    dispatch(fetchFav()); 
   }
 
   useEffect(()=>{
@@ -29,7 +30,7 @@ const FavoritePage = () => {
       <h2>즐겨찾기</h2>
       <Row className='loading-row'>
         <ClipLoader 
-          loading={loading}
+          loading={loadingFav}
           color={'#CC071E'}
           size={100} 
           data-testid="clip-loader-two"

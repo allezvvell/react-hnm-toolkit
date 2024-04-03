@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { productActions } from '../redux/reducers/productSlice';
 
 
 const FavProductCard = ({item}) => {
@@ -16,7 +16,7 @@ const FavProductCard = ({item}) => {
         event.stopPropagation();
         const currentFavList = JSON.parse(localStorage.getItem('favId'));
         const newFavList = currentFavList.filter(id => id!==item.id);
-        dispatch({type:'DELETE_FAV_LIST',payload:{newFavList}})
+        dispatch(productActions.deleteCart({newFavList}))
         localStorage.setItem('favId',JSON.stringify(newFavList));
     }
   return (

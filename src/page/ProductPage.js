@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Container,Row,Col, Alert } from 'react-bootstrap';
 import ProductCard from '../component/ProductCard';
 import { useSearchParams } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
-import { productAction } from '../redux/actions/productAction';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts, productActions } from '../redux/reducers/productSlice';
 
 
 
 const ProductPage = () => { 
-  
-  const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const productList = useSelector(state=>state.product.productList);
+  const loadingAll = useSelector(state=>state.product.loadingAll)
   const getProductList = () => {
     const query = searchParams.get('q') || '';
-    dispatch(productAction.getProductList(query,setLoading));
+    dispatch(productActions.trueLoadingAll())
+    dispatch(fetchProducts({query}));
     }    
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const ProductPage = () => {
     return <Container>
       <Row className='loading-row'>
         <ClipLoader
-          loading={loading}
+          loading={loadingAll}
           color={'#CC071E'}
           size={100} 
           data-testid="clip-loader"
